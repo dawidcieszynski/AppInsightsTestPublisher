@@ -32,8 +32,11 @@ jobs:
         $version = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
         echo $version
         echo "VERSION=$version" >> $GITHUB_ENV
+        echo "VERSION=$version" >> $GITHUB_OUTPUT
       shell: pwsh
     - name: Pack
+      env:
+        VERSION: ${{ steps.get_version.outputs.VERSION }}
       run: dotnet pack -p:PackageVersion=${env:VERSION} src/AppInsightsTestPublisher.csproj
     - name: Publish
       env:
