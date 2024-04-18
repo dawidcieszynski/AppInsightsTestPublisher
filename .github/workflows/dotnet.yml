@@ -23,4 +23,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/AppInsightsTestPublisher.sln
     - name: Build
-      run: dotnet build --no-restore src/AppInsightsTestPublisher.csproj
+      run: dotnet build --no-restore src/AppInsightsTestPublisher.csproj -c Release
+    - name: Get AssemblyVersion
+      id: get_version
+      run: |
+        $version = (Get-Item /home/runner/work/AppInsightsTestPublisher/AppInsightsTestPublisher/src/bin/Release/net8.0/AppInsightsTestPublisher.dll | Select-Object -ExpandProperty VersionInfo).ProductVersion
+        $env:VERSION=$version
+        echo "VERSION=$version" >> $env:GITHUB_ENV
+      shell: pwsh
+    - name: Pack
+      run: dotnet pack -p:PackageVersion=$env:VERSION
