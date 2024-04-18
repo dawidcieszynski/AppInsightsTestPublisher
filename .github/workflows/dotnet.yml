@@ -34,8 +34,6 @@ jobs:
         echo "VERSION=$version" >> $GITHUB_ENV
       shell: pwsh
     - name: Pack
-      env:
-        VERSION: ${{ steps.get_version.outputs }}
       run: cat "$GITHUB_ENV" && dotnet pack -p:PackageVersion=${env:VERSION} src/AppInsightsTestPublisher.csproj
     - name: Publish
       env:
