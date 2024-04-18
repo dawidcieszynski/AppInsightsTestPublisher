@@ -36,7 +36,7 @@ jobs:
       shell: pwsh
     - name: Pack
       env:
-        VERSION: ${{ steps.get_version.outputs.VERSION }}
+        VERSION: ${{ steps.get_version.outputs }}
       run: dotnet pack -p:PackageVersion=${env:VERSION} src/AppInsightsTestPublisher.csproj
     - name: Publish
       env:
