@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AppInsightsTestPublisher": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\..\\..\\..\\..\\..\\..\\output\\"
+    }
+  }
+}
