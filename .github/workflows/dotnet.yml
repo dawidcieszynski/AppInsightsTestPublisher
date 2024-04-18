@@ -29,10 +29,12 @@ jobs:
       run: |
         $version = (Get-Item /home/runner/work/AppInsightsTestPublisher/AppInsightsTestPublisher/src/bin/Release/net8.0/AppInsightsTestPublisher.dll | Select-Object -ExpandProperty VersionInfo).ProductVersion
         echo $version
+        $version = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
+        echo $version
         echo "VERSION=$version" >> $GITHUB_ENV
       shell: pwsh
     - name: Pack
-      run: dotnet pack -p:PackageVersion=${env:VERSION}src/AppInsightsTestPublisher.csproj
+      run: dotnet pack -p:PackageVersion=${env:VERSION} src/AppInsightsTestPublisher.csproj
     - name: Publish
       env:
         APIKEY: ${{ secrets.APIKEY }}
