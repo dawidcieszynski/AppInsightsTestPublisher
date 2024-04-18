@@ -32,4 +32,4 @@ jobs:
         $version = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
         echo $version
         dotnet pack -p:PackageVersion=$version src/AppInsightsTestPublisher.csproj
-        dotnet nuget push ".\nupkg\AppInsightsTestPublisher.*.nupkg" -k "$env:APIKEY" -s https://api.nuget.org/v3/index.json
+        dotnet nuget push "/home/runner/work/AppInsightsTestPublisher/AppInsightsTestPublisher/src/nupkg/AppInsightsTestPublisher.*.nupkg" -k "$env:APIKEY" -s https://api.nuget.org/v3/index.json
