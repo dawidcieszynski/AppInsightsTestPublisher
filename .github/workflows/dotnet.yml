@@ -24,18 +24,12 @@ jobs:
       run: dotnet restore src/AppInsightsTestPublisher.sln
     - name: Build
       run: dotnet build --no-restore src/AppInsightsTestPublisher.csproj -c Release
-    - name: Get AssemblyVersion
-      id: get_version
-      run: |
-        $version = (Get-Item /home/runner/work/AppInsightsTestPublisher/AppInsightsTestPublisher/src/bin/Release/net8.0/AppInsightsTestPublisher.dll | Select-Object -ExpandProperty VersionInfo).ProductVersion
-        echo $version
-        $version = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
-        echo $version
-        echo "VERSION=$version" >> $GITHUB_ENV
-      shell: pwsh
-    - name: Pack
-      run: cat "$GITHUB_ENV" && dotnet pack -p:PackageVersion=${env:VERSION} src/AppInsightsTestPublisher.csproj
     - name: Publish
       env:
         APIKEY: ${{ secrets.APIKEY }}
-      run: dotnet nuget push ".\nupkg\AppInsightsTestPublisher.*.nupkg" -k "$env:APIKEY" -s https://api.nuget.org/v3/index.json
+      shell: pwsh
+      run: |
+        $version = $([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))
+        echo $version
+        dotnet pack -p:PackageVersion=$version src/AppInsightsTestPublisher.csproj
+        dotnet nuget push ".\nupkg\AppInsightsTestPublisher.*.nupkg" -k "$env:APIKEY" -s https://api.nuget.org/v3/index.json
