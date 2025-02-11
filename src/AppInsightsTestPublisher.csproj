@@ -19,8 +19,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables"
-      Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
+      Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.2" />
   </ItemGroup>
 
   <ItemGroup>
